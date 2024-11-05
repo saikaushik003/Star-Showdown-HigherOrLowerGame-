@@ -1,4 +1,3 @@
-# Star-Showdown
 # StarShowdown: A Fun and Interactive Game
 
 Welcome to **StarShowdown**, a thrilling web-based game that challenges players to guess which celebrity has the most Instagram followers. This project combines engaging gameplay, vibrant visuals, and a user-friendly interface, providing a fun experience for players of all ages.
