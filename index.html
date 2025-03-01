@@ -22,10 +22,15 @@
         }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
+	
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Genos:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="icon" href="https://b.thumbs.redditmedia.com/b4F8StJy6s3ZELjlhMZJnpWj1YgyAIi32xzUxwzg7SE.jpg">
+    <link rel="icon" href="https://mir-s3-cdn-cf.behance.net/project_modules/source/4d885089206801.60f5ae5abf6cd.png">
+
+
+
+
 </head>
 <body class="bg-custom min-h-screen text-white bg-no-repeat bg-cover bg-center bg-fixed" style="background-image: url('https://media1.tenor.com/m/F4Tu6W6NmskAAAAd/brahmanandam-anjaneyulu.gif');">
 
@@ -61,11 +66,11 @@
                     <h2 id="rightActorName" class="text-4xl font-extrabold mb-2 tracking-wide md:text-left">Actor 2</h2>
                     <p class="text-lg font-bold md:text-left">has</p>
                     <div class="flex flex-col space-y-2 my-4">
-                        <button onclick="checkAnswer('higher')" class="flex items-center justify-center btn-transparent px-4 py-2 font-semibold rounded-full hover:bg-white hover:text-green-500 transition duration-300 ease-in-out gap-2">
+                        <button onclick="checkAnswer('higher')" class="flex items-center justify-center w-80 btn-transparent px-4 py-2 font-semibold rounded-full hover:bg-white hover:text-green-500 transition duration-300 ease-in-out gap-2">
                             Higher
                             <i class="bi bi-caret-up-fill"></i>
                         </button>
-                        <button onclick="checkAnswer('lower')" class="flex items-center justify-center btn-transparent px-4 py-2 font-semibold rounded-full hover:bg-white hover:text-red-500 transition duration-300 ease-in-out gap-2">
+                        <button onclick="checkAnswer('lower')" class="flex items-center justify-center w-80 btn-transparent px-4 py-2 font-semibold rounded-full hover:bg-white hover:text-red-500 transition duration-300 ease-in-out gap-2">
                             Lower
                             <i class="bi bi-caret-down-fill"></i>
                         </button>
@@ -144,7 +149,7 @@
     },
     {
       "actor_name": "Hrithik Roshan",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/ecmAOqqRf4XMcwvfHOYqh5ZD7yp.jpg",
+      "image_link": "https://image.tmdb.org/t/p/w1280/mFGmqMqOb36hpP50X3XzrHB02Av.jpg",
       "followers": "47.5M"
     },
     {
@@ -340,7 +345,7 @@
     {
       "actor_name": "Sudeep Kiccha",
       "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/lejx7u1c0AFvdJ3nZGE3VfFzC4D.jpg",
-      "followers": "350K"
+      "followers": "2.5M"
     },
     {
       "actor_name": "Darshan ",
@@ -349,7 +354,7 @@
     },
     {
       "actor_name": "Mohan Lal",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/36pf4zQfqXWJiFw9Y8M0xICMsGS.jpg",
+      "image_link": "https://image.tmdb.org/t/p/w1280/uhCY3cPhral7DDcdUdju7QmXxB1.jpg",
       "followers": "5.9M"
     },
     {
@@ -456,7 +461,15 @@
       "actor_name": "Aditya Roy Kapur",
       "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/2dMh4mdYzXrMbp8JDqDAhEII9zN.jpg",
       "followers": "3.4M"
-    } ];
+    }, 
+    
+    {
+      "actor_name": "STR",
+      "image_link": "https://image.tmdb.org/t/p/w1280/zfRWRM1zl01EczGPOgMncwzU6tr.jpg",
+      "followers": "13.4M"
+    } 
+
+];
 
         let remainingActors = [...actorsData];
         let currentActor, nextActor;
@@ -493,22 +506,33 @@
             return remainingActors.splice(randomIndex, 1)[0];
         }
 
-        function checkAnswer(choice) {
-            const currentFollowers = formatFollowers(currentActor.followers);
-            const nextFollowers = formatFollowers(nextActor.followers);
-            const isCorrect = (choice === 'higher' && nextFollowers >= currentFollowers) || (choice === 'lower' && nextFollowers <= currentFollowers);
+        // Load high score from localStorage when the page loads
+	document.addEventListener("DOMContentLoaded", () => {
+    	highScore = localStorage.getItem("highScore") ? parseInt(localStorage.getItem("highScore")) : 0;
+    	document.getElementById('highScore').textContent = highScore;
+	});
 
-            if (isCorrect) {
-                score++;
-                document.getElementById('currentScore').textContent = score;
-                currentActor = nextActor;
-                if (remainingActors.length === 0) endGame();
-                else nextActor = pickRandomActor();
-                displayActors();
-                if (score > highScore) highScore = score;
-                document.getElementById('highScore').textContent = highScore;
-            } else endGame();
+	function checkAnswer(choice) {
+    		const currentFollowers = formatFollowers(currentActor.followers);
+    		const nextFollowers = formatFollowers(nextActor.followers);
+    		const isCorrect = (choice === 'higher' && nextFollowers >= currentFollowers) || (choice === 'lower' && nextFollowers <= currentFollowers);
+
+    	if (isCorrect) {
+        score++;
+        document.getElementById('currentScore').textContent = score;
+        currentActor = nextActor;
+        if (remainingActors.length === 0) endGame();
+        else nextActor = pickRandomActor();
+        displayActors();
+        
+        if (score > highScore) {
+            highScore = score;
+            document.getElementById('highScore').textContent = highScore;
+            localStorage.setItem("highScore", highScore); // Save new high score in localStorage
         }
+    } else endGame();
+}
+
 
         function resetGame() {
             remainingActors = [...actorsData];
