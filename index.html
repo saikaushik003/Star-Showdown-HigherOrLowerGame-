@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StarShowdown</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Genos:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="icon" href="https://mir-s3-cdn-cf.behance.net/project_modules/source/4d885089206801.60f5ae5abf6cd.png">
     <style>
         @layer base {
             body {
@@ -11,8 +18,8 @@
             }
         }
         .btn-transparent {
-            background-color: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.6);
+            background-color: rgba(0, 0, 0, 0.2); /* Slightly darker for readability */
+            border: 2px solid rgba(255, 255, 255, 0.8);
             color: white;
             transition: all 0.3s ease-in-out;
         }
@@ -20,80 +27,120 @@
             background-color: rgba(255, 255, 255, 0.3);
             border-color: white;
         }
+        /* Style for the VS circle */
+        #vs-icon {
+            width: 4rem; 
+            height: 4rem;
+            transition: background-color 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+         /* Style for Material Symbols */
+         .material-symbols-outlined {
+            font-size: 3rem; /* Larger icon size */
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 700,
+            'GRAD' 0,
+            'opsz' 48
+        }
+        /* Text shadow for better readability on complex backgrounds */
+        .text-shadow {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        /* Hide scrollbars */
+        body {
+            overflow: hidden;
+        }
+        /* Ensure content is above the overlay */
+        .actor-content {
+            position: relative;
+            z-index: 10;
+        }
     </style>
-    <script src="https://cdn.tailwindcss.com"></script>
-	
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Genos:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="icon" href="https://mir-s3-cdn-cf.behance.net/project_modules/source/4d885089206801.60f5ae5abf6cd.png">
-
-
-
-
 </head>
 <body class="bg-custom min-h-screen text-white bg-no-repeat bg-cover bg-center bg-fixed" style="background-image: url('https://media1.tenor.com/m/F4Tu6W6NmskAAAAd/brahmanandam-anjaneyulu.gif');">
 
     <!-- Start Screen -->
-    <div id="startScreen" class="container mx-auto px-4 py-16">
-        <div class="flex flex-col items-center justify-center space-y-8">
-            <p class="text-4xl font-bold text-[#FF0040]">AETQCHE</p>
-            <p class="text-xl font-semibold">PRESENTS</p>
-            <span class="text-2xl font-semibold text-[#FF0040]">STAR SHOWDOWN</span>
-            <span class="text-xl">Who has most Instagram Followers?</span>
-            <button onclick="startGame()" class="p-3 rounded-2xl bg-green-500 text-white text-2xl">
-                PLAY
-                <i class="bi bi-caret-right-fill"></i>
-            </button>
+    <div id="startScreen" class="h-screen flex items-center justify-center">
+        <div class="container mx-auto px-4 py-16 text-center">
+            <div class="flex flex-col items-center justify-center space-y-8">
+                <p class="text-4xl md:text-5xl font-bold text-[#FF0040] text-shadow">AETQCHE</p>
+                <p class="text-xl md:text-2xl font-semibold text-shadow">PRESENTS</p>
+                <span class="text-2xl md:text-4xl font-semibold text-[#FF0040] text-shadow">STAR SHOWDOWN</span>
+                <span class="text-xl md:text-2xl text-shadow">Who has most Instagram Followers?</span>
+                <button onclick="startGame()" class="p-3 rounded-2xl bg-green-500 text-white text-2xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    PLAY
+                    <i class="bi bi-caret-right-fill"></i>
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- Game Screen -->
     <div id="gameScreen" class="hidden h-screen">
-        <div class="grid grid-cols-1 md:grid-cols-2 h-full relative bg-gray-900 text-white">
-            <div class="relative flex items-center justify-center bg-gray-800" id="leftActor">
-                <img class="absolute inset-0 w-full h-full object-cover object-top opacity-70" id="leftActorImg" alt="Actor 1">
-                <div class="relative z-10 text-center p-6">
-                    <h2 id="leftActorName" class="text-4xl font-extrabold mb-2 tracking-wide md:text-left">Actor 1</h2>
-                    <p class="text-lg font-bold md:text-left">has</p>
-                    <p id="leftActorFollowers" class="text-6xl font-bold text-yellow-400 my-2 md:text-left">??M</p>
-                    <p class="text-lg font-bold md:text-left">Instagram Followers</p>
+        <!-- The main grid now correctly handles mobile (stacked) and desktop (side-by-side) layouts -->
+        <div class="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 h-full relative">
+            <!-- Left Actor Panel -->
+            <div class="relative flex items-center justify-center overflow-hidden actor-panel" id="leftActor">
+                <img class="absolute inset-0 w-full h-full object-cover object-top" id="leftActorImg" alt="Actor 1">
+                <div class="actor-content text-center p-4 md:p-6 text-shadow">
+                    <h2 id="leftActorName" class="text-3xl sm:text-4xl font-extrabold mb-2 tracking-wide">Actor 1</h2>
+                    <p class="text-md sm:text-lg font-bold">has</p>
+                    <p id="leftActorFollowers" class="text-5xl sm:text-6xl font-bold text-yellow-400 my-2">0</p>
+                    <p class="text-md sm:text-lg font-bold">Instagram Followers</p>
                 </div>
             </div>
-            <div class="relative flex items-center justify-center bg-gray-800" id="rightActor">
-                <img class="absolute inset-0 w-full h-full object-cover object-top opacity-70" id="rightActorImg" alt="Actor 2">
-                <div class="relative z-10 text-center p-6">
-                    <h2 id="rightActorName" class="text-4xl font-extrabold mb-2 tracking-wide md:text-left">Actor 2</h2>
-                    <p class="text-lg font-bold md:text-left">has</p>
-                    <div class="flex flex-col space-y-2 my-4">
-                        <button onclick="checkAnswer('higher')" class="flex items-center justify-center w-80 btn-transparent px-4 py-2 font-semibold rounded-full hover:bg-white hover:text-green-500 transition duration-300 ease-in-out gap-2">
-                            Higher
-                            <i class="bi bi-caret-up-fill"></i>
-                        </button>
-                        <button onclick="checkAnswer('lower')" class="flex items-center justify-center w-80 btn-transparent px-4 py-2 font-semibold rounded-full hover:bg-white hover:text-red-500 transition duration-300 ease-in-out gap-2">
-                            Lower
-                            <i class="bi bi-caret-down-fill"></i>
-                        </button>
+
+            <!-- Right Actor Panel -->
+            <div class="relative flex items-center justify-center overflow-hidden actor-panel" id="rightActor">
+                <img class="absolute inset-0 w-full h-full object-cover object-top" id="rightActorImg" alt="Actor 2">
+                <div class="actor-content text-center p-4 md:p-6 text-shadow">
+                    <h2 id="rightActorName" class="text-3xl sm:text-4xl font-extrabold mb-2 tracking-wide">Actor 2</h2>
+                    <div id="rightActorQuestion">
+                        <p class="text-md sm:text-lg font-bold">has</p>
+                        <div id="choiceButtons" class="flex flex-col space-y-2 my-4">
+                            <button onclick="checkAnswer('higher')" class="flex items-center justify-center w-full md:w-80 btn-transparent px-4 py-2 font-semibold rounded-full hover:bg-white hover:text-green-500 transition duration-300 ease-in-out gap-2">
+                                Higher
+                                <i class="bi bi-caret-up-fill"></i>
+                            </button>
+                            <button onclick="checkAnswer('lower')" class="flex items-center justify-center w-full md:w-80 btn-transparent px-4 py-2 font-semibold rounded-full hover:bg-white hover:text-red-500 transition duration-300 ease-in-out gap-2">
+                                Lower
+                                <i class="bi bi-caret-down-fill"></i>
+                            </button>
+                        </div>
+                        <p class="text-md sm:text-lg font-bold">Instagram Followers than <span id="compareActorName">Actor 1</span></p>
                     </div>
-                    <p class="text-lg font-bold md:text-left">Instagram Followers than <span id="compareActorName">Actor 1</span></p>
+                    <div id="rightActorAnswer" class="hidden">
+                        <p class="text-md sm:text-lg font-bold">has</p>
+                        <p id="rightActorFollowers" class="text-5xl sm:text-6xl font-bold text-yellow-400 my-2">0</p>
+                        <p class="text-md sm:text-lg font-bold">Instagram Followers</p>
+                    </div>
                 </div>
             </div>
-            <div class="absolute top-1/2 w-full flex justify-center transform -translate-y-1/2 z-20 pointer-events-none">
-                <div class="w-12 h-12 bg-white text-black flex items-center justify-center rounded-full text-lg font-bold">VS</div>
+            
+            <!-- VS Symbol in the middle, perfectly centered -->
+            <div class="absolute top-1/2 left-1/2 flex justify-center transform -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                <div id="vs-icon" class="bg-white text-black rounded-full font-bold">
+                    <span id="vs-text" class="text-2xl font-bold">VS</span>
+                </div>
             </div>
-            <div class="absolute bottom-4 left-4 text-lg font-semibold">High Score: <span id="highScore">0</span></div>
-            <div class="absolute bottom-4 right-4 text-lg font-semibold">Score: <span id="currentScore">0</span></div>
+
+            <!-- Scores -->
+            <div class="absolute bottom-4 left-4 text-lg font-semibold text-shadow">High Score: <span id="highScore">0</span></div>
+            <div class="absolute bottom-4 right-4 text-lg font-semibold text-shadow">Score: <span id="currentScore">0</span></div>
         </div>
     </div>
 
     <!-- Score Feedback Screen -->
-    <div id="scoreScreen" class="hidden min-h-screen text-white bg-cover bg-center bg-no-repeat transition duration-300 ease-in-out" id="score-container">
-        <div class="p-5">
-            <span class="flex items-center justify-center font-semibold text-2xl text-blue-500">You Scored:</span>
-            <span class="flex items-center justify-center text-3xl font-extrabold text-red-500" id="score-display"></span>
-            <div id="message-container" class="text-yellow-400 text-center font-semibold py-7"></div>
+    <div id="scoreScreen" class="hidden min-h-screen text-white bg-cover bg-center bg-no-repeat transition duration-300 ease-in-out flex items-center justify-center">
+        <div class="p-5 text-center max-w-lg mx-4">
+            <span class="block font-semibold text-2xl text-blue-400 text-shadow">You Scored:</span>
+            <span class="block text-5xl font-extrabold text-red-500 my-4 text-shadow" id="score-display">0</span>
+            <div id="message-container" class="text-yellow-300 font-semibold py-7 text-shadow"></div>
             <div class="flex items-center justify-center p-5">
-                <button class="flex items-center justify-center btn-transparent px-4 py-2 font-semibold rounded-full hover:bg-black hover:text-green-500 transition duration-300 ease-in-out gap-2" onclick="startGame()">
+                <button class="flex items-center justify-center btn-transparent px-6 py-3 font-semibold rounded-full hover:bg-black hover:text-green-500 transition duration-300 ease-in-out gap-2" onclick="startGame()">
                     PLAY AGAIN
                 </button>
             </div>
@@ -101,506 +148,198 @@
     </div>
 
     <script>
-        const actorsData = [
-            {
-      "actor_name": "Salman Khan",
-      "image_link": "https://m.media-amazon.com/images/M/MV5BZjRmYzQ3NzUtNTU3Yy00NDljLTg4YTUtZTNmZjNkODE3ZGJhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-      "followers": "69M"
-    },
-    {
-      "actor_name": "Shahrukh Khan",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/p4QjHaQDKDmiIN02VmzCJFCixgM.jpg",
-      "followers": "47M"
-    },
-    {
-      "actor_name": "Akshay Kumar",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/tVVtNS5oFACKoFwNaKgFhbXBnKQ.jpg",
-      "followers": "67.8M"
-    },
-    {
-      "actor_name": "Ajay Devgn",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eCu6fYH5GHHYgc07P8VkNm4uiHH.jpg",
-      "followers": "11.9M"
-    },
-    {
-      "actor_name": "Mahesh Babu",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/zOBgMV4Aw3Gb2FXskzDbjN7AuzW.jpg",
-      "followers": "13.8M"
-    },
-    {
-      "actor_name": "Pawan Kalyan",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wbzv1o0wq8vTDsufBZ4vDTSAhO8.jpg",
-      "followers": "3.2M"
-    },
-    {
-      "actor_name": "Allu Arjun",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/1D08zCXr1VVg1tu3hvHvmy0XCAu.jpg",
-      "followers": "26.3M"
-    },
-    {
-      "actor_name": "Ram Charan",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/3y2WLXeySVHExhR9VM5JwP8OPtw.jpg",
-      "followers": "23.2M"
-    },
-    {
-      "actor_name": "Jr.NTR",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9n5IRx23HRGI1Tp9ZKHYtuRIgFi.jpg",
-      "followers": "7.5M"
-    },
-    {
-      "actor_name": "Hrithik Roshan",
-      "image_link": "https://image.tmdb.org/t/p/w1280/mFGmqMqOb36hpP50X3XzrHB02Av.jpg",
-      "followers": "47.5M"
-    },
-    {
-      "actor_name": "Chiranjeevi",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/sAYX7hwemD8BNW31a0geqRrEglS.jpg",
-      "followers": "3.2M"
-    },
-    {
-      "actor_name": "Sanjay Dutt",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wqsqjn672PB4ZaWzjTd49XCma4l.jpg",
-      "followers": "9.9M"
-    },
-    {
-      "actor_name": "Venkatesh Daggubati",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fWOWOkWHV2HDr6wW0O7E6SPx4oQ.jpg",
-      "followers": "1.6M"
-    },
-    {
-      "actor_name": "Amitabh Bachchan",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7jnR2fRSk1NPCZpEybecf2lCRpF.jpg",
-      "followers": "37.5M"
-    },
-    {
-      "actor_name": "Prabhas",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fOm7MSEdUwvGnuWgpiC04d4I0Sl.jpg",
-      "followers": "12.4M"
-    },
-    {
-      "actor_name": "Anil Kapoor",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/mbwn3vY4SI7Y4voX0S0Htypmv1l.jpg",
-      "followers": "6.1M"
-    },
-    {
-      "actor_name": "Kamal Haasan",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/hP0AHgL0Uc4APQW0GkxhgyszZFD.jpg",
-      "followers": "3.7M"
-    },
-    {
-      "actor_name": "Rajinikanth",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/gaDrPq4ple0e6CTmwMqftWzvN6m.jpg",
-      "followers": "1.2M"
-    },
-    {
-      "actor_name": "Dharmendra Deol",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7E2ljyChT9SEW2YPSIj6uDEZevn.jpg",
-      "followers": "2M"
-    },
-    {
-      "actor_name": "Sunny Deol",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5M02PvRFFh9n3XdriuTaKdtZL9b.jpg",
-      "followers": "3.7M"
-    },
-    {
-      "actor_name": "Bobby Deol",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/zXqtbts0dMH2tKxLNFXIFsBBfpI.jpg",
-      "followers": "3.2M"
-    },
-    {
-      "actor_name": "Vijay Thalapathy",
-      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/leo-et00351731-1675663884.jpg",
-      "followers": "11.1M"
-    },
-    {
-      "actor_name": "Vijay Devarakonda",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wEDh02aLl2fkCXi25V4MOOuEuWF.jpg",
-      "followers": "21.6M"
-    },
-    {
-      "actor_name": "Suriya Sivakumar",
-      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kanguva-et00357490-1711005979.jpg",
-      "followers": "9.2M"
-    },
-    {
-      "actor_name": "Vijay Sethupathi",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/uxFS7bJLBG02b9AOc5qELLh20Hh.jpg",
-      "followers": "8M"
-    },
-    {
-      "actor_name": "Nani",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5xO7sOhqb2Avx52gqySMCS6Ie1d.jpg",
-      "followers": "7.5M"
-    },
-    {
-      "actor_name": "Nithiin",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/juzcTNlWM9DEX0VBW4dwpsMd1L7.jpg",
-      "followers": "2.6M"
-    },
-    {
-      "actor_name": "Naga Chaitanya",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/q7ZMqqVU8ba8VJRW0E4zYO4wbCN.jpg",
-      "followers": "7.3M"
-    },
-    {
-      "actor_name": "Varun Dhawan",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrnGztB7ZBrrfPIhh13Br2nLLG2.jpg",
-      "followers": "46.8M"
-    },
-    {
-      "actor_name": "Varun Tej",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/ysgb4NqiSoNrqIVCR4Z0LUhu5Qu.jpg",
-      "followers": "3.5M"
-    },
-    {
-      "actor_name": "Sai Dharam Tej",
-      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/republic-et00305304-29-09-2021-04-33-25.jpg",
-      "followers": "3.8M"
-    },
-    {
-      "actor_name": "Nikhil Siddharth",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yuYudZChCIcZB8QqP613CF8uRAO.jpg",
-      "followers": "1.6M"
-    },
-    {
-      "actor_name": "Sharwanand",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/ofeya3VH7q9EtzdQMhTWY3GFhaT.jpg",
-      "followers": "1.4M"
-    },
-    {
-      "actor_name": "Akhil Akkineni",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/lNqRThyczixd6ikJ4SuEhXmSgGv.jpg",
-      "followers": "3.1M"
-    },
-    {
-      "actor_name": "Rana Daggubati",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rK3pILu7y9tq4RT47Ohy3zlv8hC.jpg",
-      "followers": "5M"
-    },
-    {
-      "actor_name": "Ravi Teja",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eddQVTgEEyJ850WGFUkkXatEfS4.jpg",
-      "followers": "2.4M"
-    },
-    {
-      "actor_name": "Ram Pothineni",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/iUCx7zQpcOiO7jdjRIihHh3auR5.jpg",
-      "followers": "3.8M"
-    },
-    {
-      "actor_name": "Gopichand",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fggeRCAz6iq5lJSZ1eR59z92gfR.jpg",
-      "followers": "538K"
-    },
-    {
-      "actor_name": "Manoj Manchu",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wtpPsVqOCWUusGxYP4A4W18xi4h.jpg",
-      "followers": "730K"
-    },
-    {
-      "actor_name": "Vishnu Manchu",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/6LhE7IwhXgaNi33l0ltYahIB91i.jpg",
-      "followers": "7.3M"
-    },
-    {
-      "actor_name": "Ranveer Singh",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/bnl6b2fAG4kH5s4x8aKBDlmrJII.jpg",
-      "followers": "47.3M"
-    },
-    {
-      "actor_name": "Shahid Kapoor",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/bcuaSFhgC4jHD2zNHvsGe4xjn5e.jpg",
-      "followers": "46.8M"
-    },
-    {
-      "actor_name": "John Abraham",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/bQEcAS887IQaoxRaoypusctddy0.jpg",
-      "followers": "11.9M"
-    },
-    {
-      "actor_name": "Sidharth Malhotra",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/ixwIF4YEjF4ZW9O6JdRk5SKnTjx.jpg",
-      "followers": "29.9M"
-    },
-    {
-      "actor_name": "Emraan Hashmi",
-      "image_link": "https://m.media-amazon.com/images/M/MV5BMDE5YmNhZGUtN2IwNi00NGQxLTk4MjgtM2JmOWU3OGVhYzg1XkEyXkFqcGc@._V1_.jpg",
-      "followers": "4.6M"
-    },
-    {
-      "actor_name": "Jackie Shroff",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/ckJBmGPNqkoiY1SHqsHtLZpuLzC.jpg",
-      "followers": "1.8M"
-    },
-    {
-      "actor_name": "Vivek Oberoi",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/cM9yHpzt6QYLdnaZIizsbfyAjk6.jpg",
-      "followers": "1.6M"
-    },
-    {
-      "actor_name": "Yash",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/4wobXQ8VLfCHvgbevNMy8Rxvo41.jpg",
-      "followers": "13.5M"
-    },
-    {
-      "actor_name": "Sudeep Kiccha",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/lejx7u1c0AFvdJ3nZGE3VfFzC4D.jpg",
-      "followers": "2.5M"
-    },
-    {
-      "actor_name": "Darshan ",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/58uQTK6IvZ61GTZJK7i6O8BVtU0.jpg",
-      "followers": "2.1M"
-    },
-    {
-      "actor_name": "Mohan Lal",
-      "image_link": "https://image.tmdb.org/t/p/w1280/uhCY3cPhral7DDcdUdju7QmXxB1.jpg",
-      "followers": "5.9M"
-    },
-    {
-      "actor_name": "Dulquer Salmaan",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/gTAYm1IoonkgeHYwPukbFP87Eqx.jpg",
-      "followers": "14.3M"
-    },
-    {
-      "actor_name": "Mammootty",
-      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/turbo-et00396952-1714733887.jpg",
-      "followers": "4.7M"
-    },
-    {
-      "actor_name": "Prithviraj Sukumaran",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8XE93fXuvnzjyVuZdUfDd8ooun.jpg",
-      "followers": "5.6M"
-    },
-    {
-      "actor_name": "Rishab Shetty",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7KIipqVgPi98OqSZawQoiHIYKkX.jpg",
-      "followers": "1M"
-    },
-    {
-      "actor_name": "Rakshit Shetty",
-      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/sapta-sagaradaache-ello--side-b-et00367399-1699960148.jpg",
-      "followers": "1.3M"
-    },
-    {
-      "actor_name": "Sushant Singh Rajput",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/dC9Yp6XZnyxfTUSeE3FujWG4V3I.jpg",
-      "followers": "12.9M"
-    },
-    {
-      "actor_name": "Puneeth Rajkumar",
-      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/jackie-et00005479-1710247306.jpg",
-      "followers": "2.1M"
-    },
-    {
-      "actor_name": "Shiva Rajkumar",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/r379RDttT0y1OhylXJMSpOVmXk.jpg",
-      "followers": "566K"
-    },
-    {
-      "actor_name": "Karthi Sivakumar",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/z9TqB7GcyM0tMOFlI5mZuqNq351.jpg",
-      "followers": "4M"
-    },
-    {
-      "actor_name": "Arya",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/3f2KrEoOTmQxfDWgeqqLQ1rCYWP.jpg",
-      "followers": "1.2M"
-    },
-    {
-      "actor_name": "Dhanush",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5Xr8GLG6Tpk0fzVfQN7GwouWrtt.jpg",
-      "followers": "7.3M"
-    },
-    {
-      "actor_name": "R. Madhavan",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/zf7rUDsvXrndwU3Jdgm1xGrSavv.jpg",
-      "followers": "4.6M"
-    },
-    {
-      "actor_name": "Chiyaan Vikram ",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/6ayqAWPEWjwnVLkoHz0Oqw1WOE4.jpg",
-      "followers": "2.5M"
-    },
-    {
-      "actor_name": "Vishal",
-      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/saamanyudu-et00318339-01-02-2022-11-34-06.jpg",
-      "followers": "937K"
-    },
-    {
-      "actor_name": "Nivin Pauly",
-      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/thuramukham-et00306226-11-02-2021-07-29-28.jpg",
-      "followers": "2.9M"
-    },
-    {
-      "actor_name": "Naveen Polishetty",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/tqsYv18TODIynzpDbh9lekjkEFE.jpg",
-      "followers": "1.1M"
-    },
-    {
-      "actor_name": "Vishwak Sen",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/dMxentLHEJPBMQCPXHrUKluODpe.jpg",
-      "followers": "1.3M"
-    },
-    {
-      "actor_name": "Siddhu Jonnalagadda",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/jsMdKRdJqxknJVlQz4hvxHBaMDR.jpg",
-      "followers": "990K"
-    },
-    {
-      "actor_name": "Anand Deverakonda",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/voX19J8DqP8F7NpjLBbAb4iqgOd.jpg",
-      "followers": "497K"
-    },
-    {
-      "actor_name": "Tiger Shroff",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/clEldAzZBTM07K0goNM3MD5TAiE.jpg",
-      "followers": "39.8M"
-    },
-    {
-      "actor_name": "Aditya Roy Kapur",
-      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/2dMh4mdYzXrMbp8JDqDAhEII9zN.jpg",
-      "followers": "3.4M"
-    }, 
-    
-    {
-      "actor_name": "STR",
-      "image_link": "https://image.tmdb.org/t/p/w1280/zfRWRM1zl01EczGPOgMncwzU6tr.jpg",
-      "followers": "13.4M"
-    } 
+        // --- DATA ---
+        const actorsData = [{"actor_name":"Salman Khan","image_link":"https://m.media-amazon.com/images/M/MV5BZjRmYzQ3NzUtNTU3Yy00NDljLTg4YTUtZTNmZjNkODE3ZGJhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg","followers":"69M"},{"actor_name":"Shahrukh Khan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/p4QjHaQDKDmiIN02VmzCJFCixgM.jpg","followers":"47M"},{"actor_name":"Akshay Kumar","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/tVVtNS5oFACKoFwNaKgFhbXBnKQ.jpg","followers":"67.8M"},{"actor_name":"Ajay Devgn","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/eCu6fYH5GHHYgc07P8VkNm4uiHH.jpg","followers":"11.9M"},{"actor_name":"Mahesh Babu","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/zOBgMV4Aw3Gb2FXskzDbjN7AuzW.jpg","followers":"13.8M"},{"actor_name":"Pawan Kalyan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/wbzv1o0wq8vTDsufBZ4vDTSAhO8.jpg","followers":"3.2M"},{"actor_name":"Allu Arjun","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/1D08zCXr1VVg1tu3hvHvmy0XCAu.jpg","followers":"26.3M"},{"actor_name":"Ram Charan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/3y2WLXeySVHExhR9VM5JwP8OPtw.jpg","followers":"23.2M"},{"actor_name":"Jr.NTR","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/9n5IRx23HRGI1Tp9ZKHYtuRIgFi.jpg","followers":"7.5M"},{"actor_name":"Hrithik Roshan","image_link":"https://image.tmdb.org/t/p/w1280/mFGmqMqOb36hpP50X3XzrHB02Av.jpg","followers":"47.5M"},{"actor_name":"Chiranjeevi","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/sAYX7hwemD8BNW31a0geqRrEglS.jpg","followers":"3.2M"},{"actor_name":"Sanjay Dutt","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/wqsqjn672PB4ZaWzjTd49XCma4l.jpg","followers":"9.9M"},{"actor_name":"Venkatesh Daggubati","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/fWOWOkWHV2HDr6w0O7E6SPx4oQ.jpg","followers":"1.6M"},{"actor_name":"Amitabh Bachchan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/7jnR2fRSk1NPCZpEybecf2lCRpF.jpg","followers":"37.5M"},{"actor_name":"Prabhas","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/fOm7MSEdUwvGnuWgpiC04d4I0Sl.jpg","followers":"12.4M"},{"actor_name":"Anil Kapoor","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/mbwn3vY4SI7Y4voX0S0Htypmv1l.jpg","followers":"6.1M"},{"actor_name":"Kamal Haasan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/hP0AHgL0Uc4APQW0GkxhgyszZFD.jpg","followers":"3.7M"},{"actor_name":"Rajinikanth","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/gaDrPq4ple0e6CTmwMqftWzvN6m.jpg","followers":"1.2M"},{"actor_name":"Dharmendra Deol","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/7E2ljyChT9SEW2YPSIj6uDEZevn.jpg","followers":"2M"},{"actor_name":"Sunny Deol","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/5M02PvRFFh9n3XdriuTaKdtZL9b.jpg","followers":"3.7M"},{"actor_name":"Bobby Deol","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/zXqtbts0dMH2tKxLNFXIFsBBfpI.jpg","followers":"3.2M"},{"actor_name":"Vijay Thalapathy","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/leo-et00351731-1675663884.jpg","followers":"11.1M"},{"actor_name":"Vijay Devarakonda","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/wEDh02aLl2fkCXi25V4MOOuEuWF.jpg","followers":"21.6M"},{"actor_name":"Suriya Sivakumar","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kanguva-et00357490-1711005979.jpg","followers":"9.2M"},{"actor_name":"Vijay Sethupathi","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/uxFS7bJLBG02b9AOc5qELLh20Hh.jpg","followers":"8M"},{"actor_name":"Nani","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/5xO7sOhqb2Avx52gqySMCS6Ie1d.jpg","followers":"7.5M"},{"actor_name":"Nithiin","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/juzcTNlWM9DEX0VBW4dwpsMd1L7.jpg","followers":"2.6M"},{"actor_name":"Naga Chaitanya","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/q7ZMqqVU8ba8VJRW0E4zYO4wbCN.jpg","followers":"7.3M"},{"actor_name":"Varun Dhawan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrnGztB7ZBrrfPIhh13Br2nLLG2.jpg","followers":"46.8M"},{"actor_name":"Varun Tej","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/ysgb4NqiSoNrqIVCR4Z0LUhu5Qu.jpg","followers":"3.5M"},{"actor_name":"Sai Dharam Tej","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/republic-et00305304-29-09-2021-04-33-25.jpg","followers":"3.8M"},{"actor_name":"Nikhil Siddharth","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/yuYudZChCIcZB8QqP613CF8uRAO.jpg","followers":"1.6M"},{"actor_name":"Sharwanand","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/ofeya3VH7q9EtzdQMhTWY3GFhaT.jpg","followers":"1.4M"},{"actor_name":"Akhil Akkineni","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/lNqRThyczixd6ikJ4SuEhXmSgGv.jpg","followers":"3.1M"},{"actor_name":"Rana Daggubati","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/rK3pILu7y9tq4RT47Ohy3zlv8hC.jpg","followers":"5M"},{"actor_name":"Ravi Teja","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/eddQVTgEEyJ850WGFUkkXatEfS4.jpg","followers":"2.4M"},{"actor_name":"Ram Pothineni","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/iUCx7zQpcOiO7jdjRIihHh3auR5.jpg","followers":"3.8M"},{"actor_name":"Gopichand","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/fggeRCAz6iq5lJSZ1eR59z92gfR.jpg","followers":"538K"},{"actor_name":"Manoj Manchu","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/wtpPsVqOCWUusGxYP4A4W18xi4h.jpg","followers":"730K"},{"actor_name":"Vishnu Manchu","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/6LhE7IwhXgaNi33l0ltYahIB91i.jpg","followers":"7.3M"},{"actor_name":"Ranveer Singh","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/bnl6b2fAG4kH5s4x8aKBDlmrJII.jpg","followers":"47.3M"},{"actor_name":"Shahid Kapoor","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/bcuaSFhgC4jHD2zNHvsGe4xjn5e.jpg","followers":"46.8M"},{"actor_name":"John Abraham","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/bQEcAS887IQaoxRaoypusctddy0.jpg","followers":"11.9M"},{"actor_name":"Sidharth Malhotra","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/ixwIF4YEjF4ZW9O6JdRk5SKnTjx.jpg","followers":"29.9M"},{"actor_name":"Emraan Hashmi","image_link":"https://m.media-amazon.com/images/M/MV5BMDE5YmNhZGUtN2IwNi00NGQxLTk4MjgtM2JmOWU3OGVhYzg1XkEyXkFqcGc@._V1_.jpg","followers":"4.6M"},{"actor_name":"Jackie Shroff","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/ckJBmGPNqkoiY1SHqsHtLZpuLzC.jpg","followers":"1.8M"},{"actor_name":"Vivek Oberoi","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/cM9yHpzt6QYLdnaZIizsbfyAjk6.jpg","followers":"1.6M"},{"actor_name":"Yash","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/4wobXQ8VLfCHvgbevNMy8Rxvo41.jpg","followers":"13.5M"},{"actor_name":"Sudeep Kiccha","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/lejx7u1c0AFvdJ3nZGE3VfFzC4D.jpg","followers":"2.5M"},{"actor_name":"Darshan ","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/58uQTK6IvZ61GTZJK7i6O8BVtU0.jpg","followers":"2.1M"},{"actor_name":"Mohan Lal","image_link":"https://image.tmdb.org/t/p/w1280/uhCY3cPhral7DDcdUdju7QmXxB1.jpg","followers":"5.9M"},{"actor_name":"Dulquer Salmaan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/gTAYm1IoonkgeHYwPukbFP87Eqx.jpg","followers":"14.3M"},{"actor_name":"Mammootty","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/turbo-et00396952-1714733887.jpg","followers":"4.7M"},{"actor_name":"Prithviraj Sukumaran","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8XE93fXuvnzjyVuZdUfDd8ooun.jpg","followers":"5.6M"},{"actor_name":"Rishab Shetty","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/7KIipqVgPi98OqSZawQoiHIYKkX.jpg","followers":"1M"},{"actor_name":"Rakshit Shetty","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/sapta-sagaradaache-ello--side-b-et00367399-1699960148.jpg","followers":"1.3M"},{"actor_name":"Sushant Singh Rajput","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/dC9Yp6XZnyxfTUSeE3FujWG4V3I.jpg","followers":"12.9M"},{"actor_name":"Puneeth Rajkumar","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/jackie-et00005479-1710247306.jpg","followers":"2.1M"},{"actor_name":"Shiva Rajkumar","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/r379RDttT0y1OhylXJMSpOVmXk.jpg","followers":"566K"},{"actor_name":"Karthi Sivakumar","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/z9TqB7GcyM0tMOFlI5mZuqNq351.jpg","followers":"4M"},{"actor_name":"Arya","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/3f2KrEoOTmQxfDWgeqqLQ1rCYWP.jpg","followers":"1.2M"},{"actor_name":"Dhanush","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/5Xr8GLG6Tpk0fzVfQN7GwouWrtt.jpg","followers":"7.3M"},{"actor_name":"R. Madhavan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/zf7rUDsvXrndwU3Jdgm1xGrSavv.jpg","followers":"4.6M"},{"actor_name":"Chiyaan Vikram ","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/6ayqAWPEWjwnVLkoHz0Oqw1WOE4.jpg","followers":"2.5M"},{"actor_name":"Vishal","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/saamanyudu-et00318339-01-02-2022-11-34-06.jpg","followers":"937K"},{"actor_name":"Nivin Pauly","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/thuramukham-et00306226-11-02-2021-07-29-28.jpg","followers":"2.9M"},{"actor_name":"Naveen Polishetty","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/tqsYv18TODIynzpDbh9lekjkEFE.jpg","followers":"1.1M"},{"actor_name":"Vishwak Sen","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/dMxentLHEJPBMQCPXHrUKluODpe.jpg","followers":"1.3M"},{"actor_name":"Siddhu Jonnalagadda","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/jsMdKRdJqxknJVlQz4hvxHBaMDR.jpg","followers":"990K"},{"actor_name":"Anand Deverakonda","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/voX19J8DqP8F7NpjLBbAb4iqgOd.jpg","followers":"497K"},{"actor_name":"Tiger Shroff","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/clEldAzZBTM07K0goNM3MD5TAiE.jpg","followers":"39.8M"},{"actor_name":"Aditya Roy Kapur","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/2dMh4mdYzXrMbp8JDqDAhEII9zN.jpg","followers":"3.4M"},{"actor_name":"STR","image_link":"https://image.tmdb.org/t/p/w1280/zfRWRM1zl01EczGPOgMncwzU6tr.jpg","followers":"13.4M"}];
 
-];
-
+        // --- GAME STATE ---
         let remainingActors = [...actorsData];
         let currentActor, nextActor;
         let score = 0;
         let highScore = 0;
+        let isChecking = false;
 
-        function startGame() {
-            document.getElementById("startScreen").classList.add("hidden");
-            document.getElementById("gameScreen").classList.remove("hidden");
-            resetGame();
+        // --- DOM ELEMENTS ---
+        const startScreen = document.getElementById('startScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const scoreScreen = document.getElementById('scoreScreen');
+        const vsIcon = document.getElementById('vs-icon');
+        const choiceButtons = document.getElementById('choiceButtons');
+        const rightActorQuestion = document.getElementById('rightActorQuestion');
+        const rightActorAnswer = document.getElementById('rightActorAnswer');
+        
+        // --- HELPER FUNCTIONS ---
+
+        function formatFollowersToNumber(followers) {
+            const upperCaseFollowers = followers.toUpperCase();
+            if (upperCaseFollowers.endsWith('M')) {
+                return parseFloat(followers) * 1000000;
+            } else if (upperCaseFollowers.endsWith('K')) {
+                return parseFloat(followers) * 1000;
+            }
+            return parseFloat(followers);
         }
 
-        function formatFollowers(followers) {
-          if (followers.endsWith('M')) {
-            return parseFloat(followers) * 1000000;
-          } else if (followers.endsWith('K')) {
-            return parseFloat(followers) * 1000;
-          }
-          return parseFloat(followers);
+        function animateFollowerCount(element, finalNumber, duration = 1500) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const currentNumber = Math.floor(progress * finalNumber);
+                element.textContent = currentNumber.toLocaleString('en-US');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                     element.textContent = finalNumber.toLocaleString('en-US');
+                }
+            };
+            window.requestAnimationFrame(step);
         }
-
-
-        function displayActors() {
-            document.getElementById('leftActorImg').src = currentActor.image_link;
-            document.getElementById('leftActorName').textContent = currentActor.actor_name;
-            document.getElementById('leftActorFollowers').textContent = currentActor.followers;
-            document.getElementById('rightActorImg').src = nextActor.image_link;
-            document.getElementById('rightActorName').textContent = nextActor.actor_name;
-            document.getElementById('compareActorName').textContent = currentActor.actor_name;
-        }
-
+        
         function pickRandomActor() {
+            if (remainingActors.length === 0) {
+                remainingActors = [...actorsData]; 
+            }
             const randomIndex = Math.floor(Math.random() * remainingActors.length);
             return remainingActors.splice(randomIndex, 1)[0];
         }
-
-        // Load high score from localStorage when the page loads
-	document.addEventListener("DOMContentLoaded", () => {
-    	highScore = localStorage.getItem("highScore") ? parseInt(localStorage.getItem("highScore")) : 0;
-    	document.getElementById('highScore').textContent = highScore;
-	});
-
-	function checkAnswer(choice) {
-    		const currentFollowers = formatFollowers(currentActor.followers);
-    		const nextFollowers = formatFollowers(nextActor.followers);
-    		const isCorrect = (choice === 'higher' && nextFollowers >= currentFollowers) || (choice === 'lower' && nextFollowers <= currentFollowers);
-
-    	if (isCorrect) {
-        score++;
-        document.getElementById('currentScore').textContent = score;
-        currentActor = nextActor;
-        if (remainingActors.length === 0) endGame();
-        else nextActor = pickRandomActor();
-        displayActors();
         
-        if (score > highScore) {
-            highScore = score;
-            document.getElementById('highScore').textContent = highScore;
-            localStorage.setItem("highScore", highScore); // Save new high score in localStorage
-        }
-    } else endGame();
-}
+        function displayActors() {
+            document.getElementById('leftActorImg').src = currentActor.image_link;
+            document.getElementById('leftActorName').textContent = currentActor.actor_name;
+            const leftFollowers = formatFollowersToNumber(currentActor.followers);
+            document.getElementById('leftActorFollowers').textContent = leftFollowers.toLocaleString('en-US');
 
+            document.getElementById('rightActorImg').src = nextActor.image_link;
+            document.getElementById('rightActorName').textContent = nextActor.actor_name;
+            document.getElementById('compareActorName').textContent = currentActor.actor_name;
+            
+            rightActorQuestion.classList.remove('hidden');
+            rightActorAnswer.classList.add('hidden');
+        }
+
+        function setVsFeedback(isCorrect) {
+            vsIcon.classList.remove('bg-white', 'text-black');
+            if (isCorrect) {
+                vsIcon.classList.add('bg-green-500', 'text-white');
+                vsIcon.innerHTML = `<span class="material-symbols-outlined">check_small</span>`;
+            } else {
+                vsIcon.classList.add('bg-red-500', 'text-white');
+                vsIcon.innerHTML = `<span class="material-symbols-outlined">close_small</span>`;
+            }
+        }
+
+        function resetVsIcon() {
+            vsIcon.classList.remove('bg-green-500', 'bg-red-500', 'text-white');
+            vsIcon.classList.add('bg-white', 'text-black');
+            vsIcon.innerHTML = '<span id="vs-text" class="text-2xl font-bold">VS</span>';
+        }
+
+        // --- GAME LOGIC ---
+        
+        function startGame() {
+            // Set the background to a static image for the game screen
+            document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1511875762315-c336d78d4742?q=80&w=2070&auto=format&fit=crop')";
+            startScreen.classList.add("hidden");
+            scoreScreen.classList.add("hidden");
+            gameScreen.classList.remove("hidden");
+            resetGame();
+        }
 
         function resetGame() {
             remainingActors = [...actorsData];
             score = 0;
             document.getElementById('currentScore').textContent = score;
-            document.getElementById('scoreScreen').classList.add("hidden");
-            document.getElementById('gameScreen').classList.remove("hidden");
             currentActor = pickRandomActor();
             nextActor = pickRandomActor();
+            while (currentActor.actor_name === nextActor.actor_name) {
+                 nextActor = pickRandomActor();
+            }
             displayActors();
+            resetVsIcon();
         }
 
+        function checkAnswer(choice) {
+            if (isChecking) return;
+            isChecking = true;
+
+            const currentFollowers = formatFollowersToNumber(currentActor.followers);
+            const nextFollowers = formatFollowersToNumber(nextActor.followers);
+            const isCorrect = (choice === 'higher' && nextFollowers >= currentFollowers) || (choice === 'lower' && nextFollowers <= currentFollowers);
+
+            rightActorQuestion.classList.add('hidden');
+            rightActorAnswer.classList.remove('hidden');
+            animateFollowerCount(document.getElementById('rightActorFollowers'), nextFollowers);
+            setVsFeedback(isCorrect);
+            
+            setTimeout(() => {
+                if (isCorrect) {
+                    score++;
+                    document.getElementById('currentScore').textContent = score;
+                    if (score > highScore) {
+                        highScore = score;
+                        document.getElementById('highScore').textContent = highScore;
+                        localStorage.setItem("highScore", highScore);
+                    }
+                    
+                    currentActor = nextActor;
+                    nextActor = pickRandomActor();
+                    while (currentActor.actor_name === nextActor.actor_name) {
+                        nextActor = pickRandomActor();
+                    }
+                    
+                    displayActors();
+                    resetVsIcon();
+                    isChecking = false;
+
+                } else {
+                    endGame();
+                }
+            }, 2500);
+        }
+        
         function endGame() {
-            document.getElementById('gameScreen').classList.add("hidden");
-            document.getElementById('scoreScreen').classList.remove("hidden");
+            gameScreen.classList.add("hidden");
+            scoreScreen.classList.remove("hidden");
             document.getElementById('score-display').textContent = score;
             setScoreFeedback(score);
+            isChecking = false;
         }
 
         function setScoreFeedback(score) {
-          let message = "";
-          let bgImages = [];
-          
-          if (score <= 3) {
-              message = "THAT'S NOT A GOOD SCORE. THE AVERAGE SCORE IS 4. QUICKLY CLICK ON PLAY AGAIN AND WE PRETEND WE DID NOT SEE THAT SCORE!";
-              bgImages = [
-                'https://media1.tenor.com/m/fsBQNng0_DoAAAAd/bramhi-telugu.gif',
-                'https://media1.tenor.com/m/PKYDvno-fuAAAAAd/thinking-brahmi.gif'
-              ];
-          } else if (score >= 4 && score <= 14) {
-              message = "WOOO! THAT'S A SCORE IN THE TOP 12%. SHARE IT ON YOUR SOCIALS!!!";
-              bgImages = [
-                'https://media1.tenor.com/m/16x7RkC-P8wAAAAd/brahmanandam-bhibatsam.gif',
-                'https://media1.tenor.com/m/8angsgI9Yb8AAAAd/crazy-oh-crazy.gif'
-              ];
-          } else if (score >= 15 && score <= 25) {
-              message = "99% OF PEOPLE WHO PLAY THIS GAME SCORE LESS THAN YOU!";
-              bgImages = [
-                'https://media1.tenor.com/m/bd7UT1wcSvUAAAAd/telugu-funny.gif',
-                'https://media1.tenor.com/m/8xdb5OWD7DIAAAAd/ahaa-venu.gif'
-              ];
-          } else if (score >= 26 && score <= 50) {
-              message = "WOW!!! YOU'RE IN THE TOP 1% OF ALL PLAYERS. SERIOUSLY... SHARE YOUR SCORE!";
-              bgImages = [
-                'https://media1.tenor.com/m/wRmj_Zm6CzgAAAAd/yes.gif',
-                'https://media1.tenor.com/m/c4AbvI2KymoAAAAd/yem-cheppavuraa-sunil.gif'
-              ];
-          } else if (score >= 51 && score <= 75) {
-              message = "YOU'RE IN THE TOP 0.01 OF ALL PLAYERS. SHARE AND CHALLENGE YOUR FRIENDS!!";
-              bgImages = [
-                'https://media1.tenor.com/m/LLBYYrbdtWEAAAAd/telugu-comedy.gif',
-                'https://media1.tenor.com/m/HJjXA-mJEQ4AAAAd/prabhas-rebel.gif'
-              ];
-          } else {
-              message = "99% OF PEOPLE WHO PLAY THIS GAME SCORE LESS THAN YOU!";
-              bgImages = [
-                'https://media1.tenor.com/m/kI-Uje2Jnz4AAAAd/manju-kautilyapaata.gif',
-                'https://media1.tenor.com/m/wCYhTV7YW1cAAAAd/thokkathotakura-brahmi.gif'
-              ];
-          }
-          
-          // Select a random background image from the chosen array
-          const backgroundImageUrl = bgImages[Math.floor(Math.random() * bgImages.length)];
-      
-          document.getElementById('message-container').innerHTML = `<p class="text-lg">${message}</p>`;
-          document.getElementById('scoreScreen').style.backgroundImage = `url('${backgroundImageUrl}')`;
-      }
+            let message = "";
+            let bgImages = [];
 
+            if (score <= 3) {
+                message = "THAT'S NOT A GOOD SCORE. THE AVERAGE SCORE IS 4. QUICKLY CLICK ON PLAY AGAIN AND WE PRETEND WE DID NOT SEE THAT SCORE!";
+                bgImages = ['https://media1.tenor.com/m/fsBQNng0_DoAAAAd/bramhi-telugu.gif', 'https://media1.tenor.com/m/PKYDvno-fuAAAAAd/thinking-brahmi.gif'];
+            } else if (score >= 4 && score <= 14) {
+                message = "WOOO! THAT'S A SCORE IN THE TOP 12%. SHARE IT ON YOUR SOCIALS!!!";
+                bgImages = ['https://media1.tenor.com/m/16x7RkC-P8wAAAAd/brahmanandam-bhibatsam.gif', 'https://media1.tenor.com/m/8angsgI9Yb8AAAAd/crazy-oh-crazy.gif'];
+            } else if (score >= 15 && score <= 25) {
+                message = "99% OF PEOPLE WHO PLAY THIS GAME SCORE LESS THAN YOU!";
+                bgImages = ['https://media1.tenor.com/m/bd7UT1wcSvUAAAAd/telugu-funny.gif', 'https://media1.tenor.com/m/8xdb5OWD7DIAAAAd/ahaa-venu.gif'];
+            } else if (score >= 26 && score <= 50) {
+                message = "WOW!!! YOU'RE IN THE TOP 1% OF ALL PLAYERS. SERIOUSLY... SHARE YOUR SCORE!";
+                bgImages = ['https://media1.tenor.com/m/wRmj_Zm6CzgAAAAd/yes.gif', 'https://media1.tenor.com/m/c4AbvI2KymoAAAAd/yem-cheppavuraa-sunil.gif'];
+            } else if (score >= 51 && score <= 75) {
+                message = "YOU'RE IN THE TOP 0.01 OF ALL PLAYERS. SHARE AND CHALLENGE YOUR FRIENDS!!";
+                bgImages = ['https://media1.tenor.com/m/LLBYYrbdtWEAAAAd/telugu-comedy.gif', 'https://media1.tenor.com/m/HJjXA-mJEQ4AAAAd/prabhas-rebel.gif'];
+            } else {
+                message = "INCREDIBLE! YOU'RE A TRUE CINEPHILE. CHALLENGE YOUR FRIENDS!";
+                bgImages = ['https://media1.tenor.com/m/kI-Uje2Jnz4AAAAd/manju-kautilyapaata.gif', 'https://media1.tenor.com/m/wCYhTV7YW1cAAAAd/thokkathotakura-brahmi.gif'];
+            }
+            
+            const backgroundImageUrl = bgImages[Math.floor(Math.random() * bgImages.length)];
+            
+            document.getElementById('message-container').innerHTML = `<p class="text-lg">${message}</p>`;
+            scoreScreen.style.backgroundImage = `url('${backgroundImageUrl}')`;
+        }
+        
+        // --- INITIALIZATION ---
+        document.addEventListener("DOMContentLoaded", () => {
+            highScore = localStorage.getItem("highScore") ? parseInt(localStorage.getItem("highScore")) : 0;
+            document.getElementById('highScore').textContent = highScore;
+        });
     </script>
 </body>
 </html>
