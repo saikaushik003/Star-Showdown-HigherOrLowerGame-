@@ -149,8 +149,375 @@
 
     <script>
         // --- DATA ---
-        const actorsData = [{"actor_name":"Salman Khan","image_link":"https://m.media-amazon.com/images/M/MV5BZjRmYzQ3NzUtNTU3Yy00NDljLTg4YTUtZTNmZjNkODE3ZGJhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg","followers":"69M"},{"actor_name":"Shahrukh Khan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/p4QjHaQDKDmiIN02VmzCJFCixgM.jpg","followers":"47M"},{"actor_name":"Akshay Kumar","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/tVVtNS5oFACKoFwNaKgFhbXBnKQ.jpg","followers":"67.8M"},{"actor_name":"Ajay Devgn","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/eCu6fYH5GHHYgc07P8VkNm4uiHH.jpg","followers":"11.9M"},{"actor_name":"Mahesh Babu","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/zOBgMV4Aw3Gb2FXskzDbjN7AuzW.jpg","followers":"13.8M"},{"actor_name":"Pawan Kalyan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/wbzv1o0wq8vTDsufBZ4vDTSAhO8.jpg","followers":"3.2M"},{"actor_name":"Allu Arjun","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/1D08zCXr1VVg1tu3hvHvmy0XCAu.jpg","followers":"26.3M"},{"actor_name":"Ram Charan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/3y2WLXeySVHExhR9VM5JwP8OPtw.jpg","followers":"23.2M"},{"actor_name":"Jr.NTR","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/9n5IRx23HRGI1Tp9ZKHYtuRIgFi.jpg","followers":"7.5M"},{"actor_name":"Hrithik Roshan","image_link":"https://image.tmdb.org/t/p/w1280/mFGmqMqOb36hpP50X3XzrHB02Av.jpg","followers":"47.5M"},{"actor_name":"Chiranjeevi","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/sAYX7hwemD8BNW31a0geqRrEglS.jpg","followers":"3.2M"},{"actor_name":"Sanjay Dutt","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/wqsqjn672PB4ZaWzjTd49XCma4l.jpg","followers":"9.9M"},{"actor_name":"Venkatesh Daggubati","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/fWOWOkWHV2HDr6w0O7E6SPx4oQ.jpg","followers":"1.6M"},{"actor_name":"Amitabh Bachchan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/7jnR2fRSk1NPCZpEybecf2lCRpF.jpg","followers":"37.5M"},{"actor_name":"Prabhas","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/fOm7MSEdUwvGnuWgpiC04d4I0Sl.jpg","followers":"12.4M"},{"actor_name":"Anil Kapoor","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/mbwn3vY4SI7Y4voX0S0Htypmv1l.jpg","followers":"6.1M"},{"actor_name":"Kamal Haasan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/hP0AHgL0Uc4APQW0GkxhgyszZFD.jpg","followers":"3.7M"},{"actor_name":"Rajinikanth","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/gaDrPq4ple0e6CTmwMqftWzvN6m.jpg","followers":"1.2M"},{"actor_name":"Dharmendra Deol","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/7E2ljyChT9SEW2YPSIj6uDEZevn.jpg","followers":"2M"},{"actor_name":"Sunny Deol","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/5M02PvRFFh9n3XdriuTaKdtZL9b.jpg","followers":"3.7M"},{"actor_name":"Bobby Deol","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/zXqtbts0dMH2tKxLNFXIFsBBfpI.jpg","followers":"3.2M"},{"actor_name":"Vijay Thalapathy","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/leo-et00351731-1675663884.jpg","followers":"11.1M"},{"actor_name":"Vijay Devarakonda","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/wEDh02aLl2fkCXi25V4MOOuEuWF.jpg","followers":"21.6M"},{"actor_name":"Suriya Sivakumar","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kanguva-et00357490-1711005979.jpg","followers":"9.2M"},{"actor_name":"Vijay Sethupathi","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/uxFS7bJLBG02b9AOc5qELLh20Hh.jpg","followers":"8M"},{"actor_name":"Nani","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/5xO7sOhqb2Avx52gqySMCS6Ie1d.jpg","followers":"7.5M"},{"actor_name":"Nithiin","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/juzcTNlWM9DEX0VBW4dwpsMd1L7.jpg","followers":"2.6M"},{"actor_name":"Naga Chaitanya","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/q7ZMqqVU8ba8VJRW0E4zYO4wbCN.jpg","followers":"7.3M"},{"actor_name":"Varun Dhawan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrnGztB7ZBrrfPIhh13Br2nLLG2.jpg","followers":"46.8M"},{"actor_name":"Varun Tej","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/ysgb4NqiSoNrqIVCR4Z0LUhu5Qu.jpg","followers":"3.5M"},{"actor_name":"Sai Dharam Tej","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/republic-et00305304-29-09-2021-04-33-25.jpg","followers":"3.8M"},{"actor_name":"Nikhil Siddharth","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/yuYudZChCIcZB8QqP613CF8uRAO.jpg","followers":"1.6M"},{"actor_name":"Sharwanand","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/ofeya3VH7q9EtzdQMhTWY3GFhaT.jpg","followers":"1.4M"},{"actor_name":"Akhil Akkineni","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/lNqRThyczixd6ikJ4SuEhXmSgGv.jpg","followers":"3.1M"},{"actor_name":"Rana Daggubati","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/rK3pILu7y9tq4RT47Ohy3zlv8hC.jpg","followers":"5M"},{"actor_name":"Ravi Teja","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/eddQVTgEEyJ850WGFUkkXatEfS4.jpg","followers":"2.4M"},{"actor_name":"Ram Pothineni","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/iUCx7zQpcOiO7jdjRIihHh3auR5.jpg","followers":"3.8M"},{"actor_name":"Gopichand","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/fggeRCAz6iq5lJSZ1eR59z92gfR.jpg","followers":"538K"},{"actor_name":"Manoj Manchu","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/wtpPsVqOCWUusGxYP4A4W18xi4h.jpg","followers":"730K"},{"actor_name":"Vishnu Manchu","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/6LhE7IwhXgaNi33l0ltYahIB91i.jpg","followers":"7.3M"},{"actor_name":"Ranveer Singh","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/bnl6b2fAG4kH5s4x8aKBDlmrJII.jpg","followers":"47.3M"},{"actor_name":"Shahid Kapoor","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/bcuaSFhgC4jHD2zNHvsGe4xjn5e.jpg","followers":"46.8M"},{"actor_name":"John Abraham","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/bQEcAS887IQaoxRaoypusctddy0.jpg","followers":"11.9M"},{"actor_name":"Sidharth Malhotra","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/ixwIF4YEjF4ZW9O6JdRk5SKnTjx.jpg","followers":"29.9M"},{"actor_name":"Emraan Hashmi","image_link":"https://m.media-amazon.com/images/M/MV5BMDE5YmNhZGUtN2IwNi00NGQxLTk4MjgtM2JmOWU3OGVhYzg1XkEyXkFqcGc@._V1_.jpg","followers":"4.6M"},{"actor_name":"Jackie Shroff","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/ckJBmGPNqkoiY1SHqsHtLZpuLzC.jpg","followers":"1.8M"},{"actor_name":"Vivek Oberoi","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/cM9yHpzt6QYLdnaZIizsbfyAjk6.jpg","followers":"1.6M"},{"actor_name":"Yash","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/4wobXQ8VLfCHvgbevNMy8Rxvo41.jpg","followers":"13.5M"},{"actor_name":"Sudeep Kiccha","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/lejx7u1c0AFvdJ3nZGE3VfFzC4D.jpg","followers":"2.5M"},{"actor_name":"Darshan ","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/58uQTK6IvZ61GTZJK7i6O8BVtU0.jpg","followers":"2.1M"},{"actor_name":"Mohan Lal","image_link":"https://image.tmdb.org/t/p/w1280/uhCY3cPhral7DDcdUdju7QmXxB1.jpg","followers":"5.9M"},{"actor_name":"Dulquer Salmaan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/gTAYm1IoonkgeHYwPukbFP87Eqx.jpg","followers":"14.3M"},{"actor_name":"Mammootty","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/turbo-et00396952-1714733887.jpg","followers":"4.7M"},{"actor_name":"Prithviraj Sukumaran","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8XE93fXuvnzjyVuZdUfDd8ooun.jpg","followers":"5.6M"},{"actor_name":"Rishab Shetty","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/7KIipqVgPi98OqSZawQoiHIYKkX.jpg","followers":"1M"},{"actor_name":"Rakshit Shetty","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/sapta-sagaradaache-ello--side-b-et00367399-1699960148.jpg","followers":"1.3M"},{"actor_name":"Sushant Singh Rajput","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/dC9Yp6XZnyxfTUSeE3FujWG4V3I.jpg","followers":"12.9M"},{"actor_name":"Puneeth Rajkumar","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/jackie-et00005479-1710247306.jpg","followers":"2.1M"},{"actor_name":"Shiva Rajkumar","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/r379RDttT0y1OhylXJMSpOVmXk.jpg","followers":"566K"},{"actor_name":"Karthi Sivakumar","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/z9TqB7GcyM0tMOFlI5mZuqNq351.jpg","followers":"4M"},{"actor_name":"Arya","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/3f2KrEoOTmQxfDWgeqqLQ1rCYWP.jpg","followers":"1.2M"},{"actor_name":"Dhanush","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/5Xr8GLG6Tpk0fzVfQN7GwouWrtt.jpg","followers":"7.3M"},{"actor_name":"R. Madhavan","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/zf7rUDsvXrndwU3Jdgm1xGrSavv.jpg","followers":"4.6M"},{"actor_name":"Chiyaan Vikram ","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/6ayqAWPEWjwnVLkoHz0Oqw1WOE4.jpg","followers":"2.5M"},{"actor_name":"Vishal","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/saamanyudu-et00318339-01-02-2022-11-34-06.jpg","followers":"937K"},{"actor_name":"Nivin Pauly","image_link":"https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/thuramukham-et00306226-11-02-2021-07-29-28.jpg","followers":"2.9M"},{"actor_name":"Naveen Polishetty","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/tqsYv18TODIynzpDbh9lekjkEFE.jpg","followers":"1.1M"},{"actor_name":"Vishwak Sen","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/dMxentLHEJPBMQCPXHrUKluODpe.jpg","followers":"1.3M"},{"actor_name":"Siddhu Jonnalagadda","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/jsMdKRdJqxknJVlQz4hvxHBaMDR.jpg","followers":"990K"},{"actor_name":"Anand Deverakonda","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/voX19J8DqP8F7NpjLBbAb4iqgOd.jpg","followers":"497K"},{"actor_name":"Tiger Shroff","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/clEldAzZBTM07K0goNM3MD5TAiE.jpg","followers":"39.8M"},{"actor_name":"Aditya Roy Kapur","image_link":"https://image.tmdb.org/t/p/w600_and_h900_bestv2/2dMh4mdYzXrMbp8JDqDAhEII9zN.jpg","followers":"3.4M"},{"actor_name":"STR","image_link":"https://image.tmdb.org/t/p/w1280/zfRWRM1zl01EczGPOgMncwzU6tr.jpg","followers":"13.4M"}];
+        const actorsData = [
+            {
+      "actor_name": "Salman Khan",
+      "image_link": "https://m.media-amazon.com/images/M/MV5BZjRmYzQ3NzUtNTU3Yy00NDljLTg4YTUtZTNmZjNkODE3ZGJhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+      "followers": "69M"
+    },
+    {
+      "actor_name": "Shahrukh Khan",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/p4QjHaQDKDmiIN02VmzCJFCixgM.jpg",
+      "followers": "47M"
+    },
+    {
+      "actor_name": "Akshay Kumar",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/tVVtNS5oFACKoFwNaKgFhbXBnKQ.jpg",
+      "followers": "67.8M"
+    },
+    {
+      "actor_name": "Ajay Devgn",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eCu6fYH5GHHYgc07P8VkNm4uiHH.jpg",
+      "followers": "11.9M"
+    },
+    {
+      "actor_name": "Mahesh Babu",
+      "image_link": "https://image.tmdb.org/t/p/original/tjHOHJ8RtmUle2tSpyumEf4ryeh.jpg",
+      "followers": "13.8M"
+    },
+    {
+      "actor_name": "Pawan Kalyan",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wbzv1o0wq8vTDsufBZ4vDTSAhO8.jpg",
+      "followers": "3.2M"
+    },
+    {
+      "actor_name": "Allu Arjun",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/1D08zCXr1VVg1tu3hvHvmy0XCAu.jpg",
+      "followers": "26.3M"
+    },
+    {
+      "actor_name": "Ram Charan",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/3y2WLXeySVHExhR9VM5JwP8OPtw.jpg",
+      "followers": "23.2M"
+    },
+    {
+      "actor_name": "Jr.NTR",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9n5IRx23HRGI1Tp9ZKHYtuRIgFi.jpg",
+      "followers": "7.5M"
+    },
+    {
+      "actor_name": "Hrithik Roshan",
+      "image_link": "https://image.tmdb.org/t/p/w1280/mFGmqMqOb36hpP50X3XzrHB02Av.jpg",
+      "followers": "47.5M"
+    },
+    {
+      "actor_name": "Chiranjeevi",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/sAYX7hwemD8BNW31a0geqRrEglS.jpg",
+      "followers": "3.2M"
+    },
+    {
+      "actor_name": "Sanjay Dutt",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wqsqjn672PB4ZaWzjTd49XCma4l.jpg",
+      "followers": "9.9M"
+    },
+    {
+      "actor_name": "Venkatesh Daggubati",
+      "image_link": "https://image.tmdb.org/t/p/w1280/83QhlsfA6PWrOJmgmazJu04EmE3.jpg",
+      "followers": "1.6M"
+    },
+    {
+      "actor_name": "Amitabh Bachchan",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7jnR2fRSk1NPCZpEybecf2lCRpF.jpg",
+      "followers": "37.5M"
+    },
+    {
+      "actor_name": "Prabhas",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fOm7MSEdUwvGnuWgpiC04d4I0Sl.jpg",
+      "followers": "12.4M"
+    },
+    {
+      "actor_name": "Anil Kapoor",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/mbwn3vY4SI7Y4voX0S0Htypmv1l.jpg",
+      "followers": "6.1M"
+    },
+    {
+      "actor_name": "Kamal Haasan",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/hP0AHgL0Uc4APQW0GkxhgyszZFD.jpg",
+      "followers": "3.7M"
+    },
+    {
+      "actor_name": "Rajinikanth",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/gaDrPq4ple0e6CTmwMqftWzvN6m.jpg",
+      "followers": "1.2M"
+    },
+    {
+      "actor_name": "Dharmendra Deol",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7E2ljyChT9SEW2YPSIj6uDEZevn.jpg",
+      "followers": "2M"
+    },
+    {
+      "actor_name": "Sunny Deol",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5M02PvRFFh9n3XdriuTaKdtZL9b.jpg",
+      "followers": "3.7M"
+    },
+    {
+      "actor_name": "Bobby Deol",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/zXqtbts0dMH2tKxLNFXIFsBBfpI.jpg",
+      "followers": "3.2M"
+    },
+    {
+      "actor_name": "Vijay Thalapathy",
+      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/leo-et00351731-1675663884.jpg",
+      "followers": "11.1M"
+    },
+    {
+      "actor_name": "Vijay Devarakonda",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wEDh02aLl2fkCXi25V4MOOuEuWF.jpg",
+      "followers": "21.6M"
+    },
+    {
+      "actor_name": "Suriya Sivakumar",
+      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/kanguva-et00357490-1711005979.jpg",
+      "followers": "9.2M"
+    },
+    {
+      "actor_name": "Vijay Sethupathi",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/uxFS7bJLBG02b9AOc5qELLh20Hh.jpg",
+      "followers": "8M"
+    },
+    {
+      "actor_name": "Nani",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5xO7sOhqb2Avx52gqySMCS6Ie1d.jpg",
+      "followers": "7.5M"
+    },
+    {
+      "actor_name": "Nithiin",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/juzcTNlWM9DEX0VBW4dwpsMd1L7.jpg",
+      "followers": "2.6M"
+    },
+    {
+      "actor_name": "Naga Chaitanya",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/q7ZMqqVU8ba8VJRW0E4zYO4wbCN.jpg",
+      "followers": "7.3M"
+    },
+    {
+      "actor_name": "Varun Dhawan",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrnGztB7ZBrrfPIhh13Br2nLLG2.jpg",
+      "followers": "46.8M"
+    },
+    {
+      "actor_name": "Varun Tej",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/ysgb4NqiSoNrqIVCR4Z0LUhu5Qu.jpg",
+      "followers": "3.5M"
+    },
+    {
+      "actor_name": "Sai Dharam Tej",
+      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/republic-et00305304-29-09-2021-04-33-25.jpg",
+      "followers": "3.8M"
+    },
+    {
+      "actor_name": "Nikhil Siddharth",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yuYudZChCIcZB8QqP613CF8uRAO.jpg",
+      "followers": "1.6M"
+    },
+    {
+      "actor_name": "Sharwanand",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/ofeya3VH7q9EtzdQMhTWY3GFhaT.jpg",
+      "followers": "1.4M"
+    },
+    {
+      "actor_name": "Akhil Akkineni",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/lNqRThyczixd6ikJ4SuEhXmSgGv.jpg",
+      "followers": "3.1M"
+    },
+    {
+      "actor_name": "Rana Daggubati",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rK3pILu7y9tq4RT47Ohy3zlv8hC.jpg",
+      "followers": "5M"
+    },
+    {
+      "actor_name": "Ravi Teja",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eddQVTgEEyJ850WGFUkkXatEfS4.jpg",
+      "followers": "2.4M"
+    },
+    {
+      "actor_name": "Ram Pothineni",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/iUCx7zQpcOiO7jdjRIihHh3auR5.jpg",
+      "followers": "3.8M"
+    },
+    {
+      "actor_name": "Gopichand",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fggeRCAz6iq5lJSZ1eR59z92gfR.jpg",
+      "followers": "538K"
+    },
+    {
+      "actor_name": "Manoj Manchu",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wtpPsVqOCWUusGxYP4A4W18xi4h.jpg",
+      "followers": "730K"
+    },
+    {
+      "actor_name": "Vishnu Manchu",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/6LhE7IwhXgaNi33l0ltYahIB91i.jpg",
+      "followers": "7.3M"
+    },
+    {
+      "actor_name": "Ranveer Singh",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/bnl6b2fAG4kH5s4x8aKBDlmrJII.jpg",
+      "followers": "47.3M"
+    },
+    {
+      "actor_name": "Shahid Kapoor",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/bcuaSFhgC4jHD2zNHvsGe4xjn5e.jpg",
+      "followers": "46.8M"
+    },
+    {
+      "actor_name": "John Abraham",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/bQEcAS887IQaoxRaoypusctddy0.jpg",
+      "followers": "11.9M"
+    },
+    {
+      "actor_name": "Sidharth Malhotra",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/ixwIF4YEjF4ZW9O6JdRk5SKnTjx.jpg",
+      "followers": "29.9M"
+    },
+    {
+      "actor_name": "Emraan Hashmi",
+      "image_link": "https://m.media-amazon.com/images/M/MV5BMDE5YmNhZGUtN2IwNi00NGQxLTk4MjgtM2JmOWU3OGVhYzg1XkEyXkFqcGc@._V1_.jpg",
+      "followers": "4.6M"
+    },
+    {
+      "actor_name": "Jackie Shroff",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/ckJBmGPNqkoiY1SHqsHtLZpuLzC.jpg",
+      "followers": "1.8M"
+    },
+    {
+      "actor_name": "Vivek Oberoi",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/cM9yHpzt6QYLdnaZIizsbfyAjk6.jpg",
+      "followers": "1.6M"
+    },
+    {
+      "actor_name": "Yash",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/4wobXQ8VLfCHvgbevNMy8Rxvo41.jpg",
+      "followers": "13.5M"
+    },
+    {
+      "actor_name": "Sudeep Kiccha",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/lejx7u1c0AFvdJ3nZGE3VfFzC4D.jpg",
+      "followers": "2.5M"
+    },
+    {
+      "actor_name": "Darshan ",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/58uQTK6IvZ61GTZJK7i6O8BVtU0.jpg",
+      "followers": "2.1M"
+    },
+    {
+      "actor_name": "Mohan Lal",
+      "image_link": "https://image.tmdb.org/t/p/w1280/uhCY3cPhral7DDcdUdju7QmXxB1.jpg",
+      "followers": "5.9M"
+    },
+    {
+      "actor_name": "Dulquer Salmaan",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/gTAYm1IoonkgeHYwPukbFP87Eqx.jpg",
+      "followers": "14.3M"
+    },
+    {
+      "actor_name": "Mammootty",
+      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/turbo-et00396952-1714733887.jpg",
+      "followers": "4.7M"
+    },
+    {
+      "actor_name": "Prithviraj Sukumaran",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/j8XE93fXuvnzjyVuZdUfDd8ooun.jpg",
+      "followers": "5.6M"
+    },
+    {
+      "actor_name": "Rishab Shetty",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7KIipqVgPi98OqSZawQoiHIYKkX.jpg",
+      "followers": "1M"
+    },
+    {
+      "actor_name": "Rakshit Shetty",
+      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/sapta-sagaradaache-ello--side-b-et00367399-1699960148.jpg",
+      "followers": "1.3M"
+    },
+    {
+      "actor_name": "Sushant Singh Rajput",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/dC9Yp6XZnyxfTUSeE3FujWG4V3I.jpg",
+      "followers": "12.9M"
+    },
+    {
+      "actor_name": "Puneeth Rajkumar",
+      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/jackie-et00005479-1710247306.jpg",
+      "followers": "2.1M"
+    },
+    {
+      "actor_name": "Shiva Rajkumar",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/r379RDttT0y1OhylXJMSpOVmXk.jpg",
+      "followers": "566K"
+    },
+    {
+      "actor_name": "Karthi Sivakumar",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/z9TqB7GcyM0tMOFlI5mZuqNq351.jpg",
+      "followers": "4M"
+    },
+    {
+      "actor_name": "Arya",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/3f2KrEoOTmQxfDWgeqqLQ1rCYWP.jpg",
+      "followers": "1.2M"
+    },
+    {
+      "actor_name": "Dhanush",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5Xr8GLG6Tpk0fzVfQN7GwouWrtt.jpg",
+      "followers": "7.3M"
+    },
+    {
+      "actor_name": "R. Madhavan",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/zf7rUDsvXrndwU3Jdgm1xGrSavv.jpg",
+      "followers": "4.6M"
+    },
+    {
+      "actor_name": "Chiyaan Vikram ",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/6ayqAWPEWjwnVLkoHz0Oqw1WOE4.jpg",
+      "followers": "2.5M"
+    },
+    {
+      "actor_name": "Vishal",
+      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/saamanyudu-et00318339-01-02-2022-11-34-06.jpg",
+      "followers": "937K"
+    },
+    {
+      "actor_name": "Nivin Pauly",
+      "image_link": "https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/thuramukham-et00306226-11-02-2021-07-29-28.jpg",
+      "followers": "2.9M"
+    },
+    {
+      "actor_name": "Naveen Polishetty",
+      "image_link": "https://image.tmdb.org/t/p/w1280/iCzGY1JD4DXqAjDKhsesKzs9vdK.jpg",
+      "followers": "1.1M"
+    },
+    {
+      "actor_name": "Vishwak Sen",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/dMxentLHEJPBMQCPXHrUKluODpe.jpg",
+      "followers": "1.3M"
+    },
+    {
+      "actor_name": "Siddhu Jonnalagadda",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/jsMdKRdJqxknJVlQz4hvxHBaMDR.jpg",
+      "followers": "990K"
+    },
+    {
+      "actor_name": "Anand Deverakonda",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/voX19J8DqP8F7NpjLBbAb4iqgOd.jpg",
+      "followers": "497K"
+    },
+    {
+      "actor_name": "Tiger Shroff",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/clEldAzZBTM07K0goNM3MD5TAiE.jpg",
+      "followers": "39.8M"
+    },
+    {
+      "actor_name": "Aditya Roy Kapur",
+      "image_link": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/2dMh4mdYzXrMbp8JDqDAhEII9zN.jpg",
+      "followers": "3.4M"
+    }, 
+    
+    {
+      "actor_name": "STR",
+      "image_link": "https://image.tmdb.org/t/p/w1280/zfRWRM1zl01EczGPOgMncwzU6tr.jpg",
+      "followers": "13.4M"
+    } 
 
+];
         // --- GAME STATE ---
         let remainingActors = [...actorsData];
         let currentActor, nextActor;
