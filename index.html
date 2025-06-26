@@ -119,7 +119,7 @@
                     </div>
                 </div>
             </div>
-            
+           
             <!-- VS Symbol in the middle, perfectly centered -->
             <div class="absolute top-1/2 left-1/2 flex justify-center transform -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
                 <div id="vs-icon" class="bg-white text-black rounded-full font-bold">
@@ -518,8 +518,9 @@
     } 
 
 ];
+
         // --- GAME STATE ---
-        let remainingActors = [...actorsData];
+        let availableActors = []; // This list will shrink as actors are used
         let currentActor, nextActor;
         let score = 0;
         let highScore = 0;
@@ -530,7 +531,6 @@
         const gameScreen = document.getElementById('gameScreen');
         const scoreScreen = document.getElementById('scoreScreen');
         const vsIcon = document.getElementById('vs-icon');
-        const choiceButtons = document.getElementById('choiceButtons');
         const rightActorQuestion = document.getElementById('rightActorQuestion');
         const rightActorAnswer = document.getElementById('rightActorAnswer');
         
@@ -563,11 +563,11 @@
         }
         
         function pickRandomActor() {
-            if (remainingActors.length === 0) {
-                remainingActors = [...actorsData]; 
+            if (availableActors.length === 0) {
+                return null; 
             }
-            const randomIndex = Math.floor(Math.random() * remainingActors.length);
-            return remainingActors.splice(randomIndex, 1)[0];
+            const randomIndex = Math.floor(Math.random() * availableActors.length);
+            return availableActors.splice(randomIndex, 1)[0];
         }
         
         function displayActors() {
@@ -604,7 +604,6 @@
         // --- GAME LOGIC ---
         
         function startGame() {
-            // Set the background to a static image for the game screen
             document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1511875762315-c336d78d4742?q=80&w=2070&auto=format&fit=crop')";
             startScreen.classList.add("hidden");
             scoreScreen.classList.add("hidden");
@@ -613,14 +612,23 @@
         }
 
         function resetGame() {
-            remainingActors = [...actorsData];
+            availableActors = [...actorsData];
             score = 0;
             document.getElementById('currentScore').textContent = score;
+
             currentActor = pickRandomActor();
             nextActor = pickRandomActor();
-            while (currentActor.actor_name === nextActor.actor_name) {
+            
+            while (currentActor && nextActor && currentActor.actor_name === nextActor.actor_name) {
+                 availableActors.push(nextActor);
                  nextActor = pickRandomActor();
             }
+
+            if (!nextActor) {
+                endGame();
+                return;
+            }
+            
             displayActors();
             resetVsIcon();
         }
@@ -650,8 +658,10 @@
                     
                     currentActor = nextActor;
                     nextActor = pickRandomActor();
-                    while (currentActor.actor_name === nextActor.actor_name) {
-                        nextActor = pickRandomActor();
+                    
+                    if (nextActor === null) {
+                        endGame(); 
+                        return;
                     }
                     
                     displayActors();
@@ -664,6 +674,7 @@
             }, 2500);
         }
         
+        
         function endGame() {
             gameScreen.classList.add("hidden");
             scoreScreen.classList.remove("hidden");
@@ -671,7 +682,8 @@
             setScoreFeedback(score);
             isChecking = false;
         }
-
+        
+        
         function setScoreFeedback(score) {
             let message = "";
             let bgImages = [];
@@ -686,7 +698,7 @@
                 message = "99% OF PEOPLE WHO PLAY THIS GAME SCORE LESS THAN YOU!";
                 bgImages = ['https://media1.tenor.com/m/bd7UT1wcSvUAAAAd/telugu-funny.gif', 'https://media1.tenor.com/m/8xdb5OWD7DIAAAAd/ahaa-venu.gif'];
             } else if (score >= 26 && score <= 50) {
-                message = "WOW!!! YOU'RE IN THE TOP 1% OF ALL PLAYERS. SERIOUSLY... SHARE YOUR SCORE!";
+                message = "WOW!!! YOU're IN THE TOP 1% OF ALL PLAYERS. SERIOUSLY... SHARE YOUR SCORE!";
                 bgImages = ['https://media1.tenor.com/m/wRmj_Zm6CzgAAAAd/yes.gif', 'https://media1.tenor.com/m/c4AbvI2KymoAAAAd/yem-cheppavuraa-sunil.gif'];
             } else if (score >= 51 && score <= 75) {
                 message = "YOU'RE IN THE TOP 0.01 OF ALL PLAYERS. SHARE AND CHALLENGE YOUR FRIENDS!!";
